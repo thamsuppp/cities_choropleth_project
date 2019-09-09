@@ -2,28 +2,11 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">PWBM Visualization Tool Project</a>
+<li><a href="#sec-1">Dash Choropleth Map Project</a>
 <ul>
 <li><a href="#sec-1-1">Description</a></li>
-<ul>
-<li><a href="#sec-1-1-1">Aims</a></li>
+<li><a href="#sec-1-2">Installation</a></li>
 </ul>
-<li><a href="#sec-1-2">Installation</a>
-<li><a href="#sec-1-3">Usage</a>
-<ul>
-<li><a href="#sec-1-3-1">Project structure</a></li>
-<li><a href="#sec-1-3-2">Flask and Dash</a></li>
-<li><a href="#sec-1-3-3">User Functions</a></li>
-<li><a href="#sec-1-3-4">Code Structure</a></li>
-<li><a href="#sec-1-3-5">In Progress</a></li>
-</ul>
-</li>
-<li><a href="#sec-1-4">Notes</a></li>
-<li><a href="#sec-1-5">Contributing</a></li>
-<li><a href="#sec-1-6">Credits</a></li>
-<li><a href="#sec-1-7">License</a></li>
-</ul>
-</li>
 </ul>
 </div>
 </div>
@@ -31,42 +14,15 @@
 
 # Dash Choropleth Map Project <a id="sec-1" name="sec-1"></a>
 
+I love geography. Maps have fascinated me since young, and I love analyzing trends across space, particularly in the cities. As an international student coming to study in America, I definitely brought many preconceived notions about urban spatial patterns that I slowly discovered were totally different in America.
 
-**Medium Article**
+While learning about data science, I was introduced to an amazing Python package called USZipcode (https://pypi.org/project/uszipcode/). With just one function call through the API, you can obtain a treasure trove of information about any zipcode in the US. The information was geographical: zipcode radius, area and boundary coordinates, demographic: population by age/gender/race/education, and economic: income, median home prices, all scraped from various data sources and collated neatly into JSON format. Surprisingly, there has not been much attention given to this awesome package in the Towards Data Science community, incorporating it into a mapping project to visualize the immense amount of data available. (a quick Google search only yielded this one article (https://towardsdatascience.com/mapping-inequality-in-peer-2-peer-lending-using-geopandas-part-1-b8c7f883d1ba). From what I understand, the data has not been updated since 2015, which is very unfortunate, but 2015 data is definitely still valuable in helping us understand spatial trends in American cities, such as the distribution of income, property prices and racial segregation.
 
-Para 1: Visualizing spatial data
+Plotly Dash is an excellent reactive framework in Python that allows you to make interactive dashboards that enable users to interact with and understand data in whole new ways. It runs React.js under-the-hood so users can access its powerful interactive capabilities without needing to code a single line of JavaScript. The visualizations utilize the Plotly visualization module which supports a wide range of plots, such as scatterplots, line graphs and even mapping. Having used Dash for month on a summer internship project, I found Dash to be the perfect tool to implement an interactive city data dashboard. This will not be a comprehensive tutorial on Dash, if you’re looking to get started, Dash has a really detailed User Guide as well as many Towards Data Science posts on Dash such as this (https://towardsdatascience.com/how-to-build-a-complex-reporting-dashboard-using-dash-and-plotl-4f4257c18a7f).
 
-Para 2: Introducing Dash
-Plotly Dash is an excellent reactive framework in Python that allows you to make powerful interactive dashboards that enable users to interact with and understand data in whole new ways. It runs React.js under-the-hood  The visualizations utilize the Plotly visualization module which supports a wide range of plots, such as scatterplots, line graphs and even mapping. 
+Plotly does have fantastic state and county level choropleth mapping tools, but there have been few attempts to incorporate choropleth map data at a zipcode level into Plotly, especially with custom shape files and geometries. The only example I’ve seen of overlaying choropleth maps on Dash is this (https://github.com/ConnectedSystems/Dash-Choropleth-Example), but it does not attempt to dynamically change the overlay’s data using callbacks.
 
-Para 3: USZipcode data
-
-Another really powerful package that I was introduced to by a senior was USZipCode. It is a massive treasure trove of zipcode-level information - geographical: zipcode radius, area, demographics: population by age/gender/education, economic: income, median home prices. 
-
-From what I understand, the data has not been updated since 2015, which is very unfortunate, but 2015 data is definitely still valuable in helping us understand spatial trends in American cities. 
-It even includes a coordinate list that 
-
-
-Para 4: Why?
-
-My references:
-
-Using Plotly Choropleth maps for state/county/country level
-https://plot.ly/python/choropleth-maps/
-Weaknesses:
-Cannot import custom shapefiles/geometries and is hence inflexible for use cases such as zipcode level
-
-https://plot.ly/~empet/14692/mapbox-choropleth-that-works-with-plotly/#/
-Works using TOPOJson files, integrates counties with Plotly but not with Dash 
-
-https://plot.ly/~jackp/18292.embed
-
-
-The only example on the Internet so far of overlaying choropleth maps on Dash
-https://github.com/ConnectedSystems/Dash-Choropleth-Example
-
-
-Para 5: 
+The purposes of publishing my project are threefold: Firstly, by visualizing these spatial data, it makes urban trends more understandable and it is my hope that it will make the public acutely aware of issues such as inequality and segregation. Secondly, I wanted to showcase the power of Dash and the Mapbox interface to create amazing visualizations. Thirdly, I hope that my project can be a spark for many other spatial data visualization projects in the future (ideas for which I will touch on at the end), especially as overlaying a choropleth and scatterplot on a city map can be so informative.
 
 
 
@@ -115,92 +71,5 @@ Para 5:
 
 ## Installation<a id="sec-1-2" name="sec-1-2"></a>
 
-The main code base is written in python 3.6. A list of required packages is included in the requirements.txt file.
-
-
-
-
-
-## Usage<a id="sec-1-3" name="sec-1-3"></a>
-
-### Project structure<a id="sec-1-3-1" name="sec-1-3-1"></a>
-
-
-
-    +-- flask_app.py                    # Main flask framework (routes)
-    +-- app1.py                         # Time-series Data (FRED) Dashboard
-    +-- app2.pay                        # Cross-sectional/Panel Data Dashboard
-    +-- SocialMedia.py                  # Package that connects to social media  
-    +-- wsgi.py                         # DispatcherMiddleware
-    +-- run.py                          # Runs the application
-    +-- README.md                       # README file
-    +-- requrements.txt                 # Required packages
-    +-- templates                       # Contains website html pages
-    ¦   +-- base.html                   # Navigation bar inherited by all webpages
-    ¦   +-- index.html                  # Home Page
-    ¦   +-- guide.html                  # Guide Page
-    ¦   +-- about.html                  # About Page
-    +-- static                          # Website's static files
-    ¦   +-- css                         # CSS styling
-    ¦   ¦   +-- bootstrap.min.css       # Bootstrap css
-    ¦   ¦   +-- style.css               # Customized css 
-    ¦   +-- images                      # Image files
-    ¦   ¦   +--logo.png                 # Penn logo
-    +-- assets                          # Dash apps' static files
-    ¦   +-- btstrap.css                 # CSS styling
-    ¦   +-- images                      # Image files for social media icons
-  
-
-    
-### Flask and Dash<a id="sec-1-3-2" name="sec-1-3-2"></a>
-
-Dash itself uses a Flask web framework under the hood. In this application, two Dash apps (app1.py and app2.py) are embedded into a Flask app using Werkzeug's DispatcherMiddleWare (wsgi.py).
-
-| Apps | Description |
-| --- | --- |
-| ![Alt Text](assets/ezgif.com-video-to-gif.gif)| App1 is used for time-series analysis |
-| ![Alt Text](assets/ezgif.com-optimize.gif) | App2 is used for cross-sectional and panel data analysis |
-
-### User Functions <a id="sec-1-3-3" name="sec-1-3-3"></a>
-
-Dash App 1:  
-* Search for data (FRED API) and/or upload own data
-    * Enter search term in searchbox and select time series from dropdown
-    * Drag or select own data at top middle of page to upload 
-
-### Code Structure <a id="sec-1-3-4" name="sec-1-3-4"></a>
-
-**Layout**
-
-1. Dropdown: overlay_variable_dropdown
-2. Dropdown: multi_variable_levels_dropdown
-3. Checkbox: layer_checkbox
-4. Slider: layer_opacity_slider
-5. Graph: map
-
-**Helper Functions**
-
-1. get_polygon
-2. create_gdf
-3. set_overlay_colors
-4. set_variables_by_type
-5. prepare_gdf
-6. Working with Multi-variables:
-    1. get_multi_var_df
-    2. get_multi_var_df_all_districts
-    3. get_multi_var_levels
-    4. get_multi_var_level_df
-
-**Callbacks**
-
-1. update_figure
-2. set_levels_dropdown_options
-
-
-
-
-Concept Map of code base
-(under construction)
-
-### In Progress <a id="sec-1-3-5" name="sec-1-3-5"></a>
+The main code base is written in python 3.6. 
 
